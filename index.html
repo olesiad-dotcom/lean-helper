@@ -79,9 +79,7 @@
             width: 100%;
             max-width: 300px;
         }
-        .hidden-panel {
-            display: none;
-        }
+        /* Удалён класс .hidden-panel, так как он больше не используется */
     </style>
 </head>
 <body>
@@ -96,17 +94,11 @@
                 <button class="tab-btn" data-tab="documents">📄 Документы</button>
             </div>
             <div class="flex flex-wrap items-center gap-2">
-    <div class="flex-1 min-w-[150px]">
-        <input type="text" id="search-input" placeholder="Поиск..." class="w-full border-2 border-slate-300 px-3 py-2 text-sm bg-white focus:border-slate-900 outline-none">
-    </div>
-    <button id="reset-search" class="text-sm text-slate-500 hover:text-slate-900">✕</button>
-    <div id="filter-panel" class="hidden-panel flex items-center gap-1">
-        <span class="text-xs text-slate-500 hidden sm:inline">Фильтр:</span>
-        <select id="discipline-filter" class="border-2 border-slate-300 px-2 py-1.5 text-sm bg-white">
-            <option value="all">Все</option>
-        </select>
-    </div>
-</div>
+                <div class="flex-1 min-w-[150px]">
+                    <input type="text" id="search-input" placeholder="Поиск..." class="w-full border-2 border-slate-300 px-3 py-2 text-sm bg-white focus:border-slate-900 outline-none">
+                </div>
+                <button id="reset-search" class="text-sm text-slate-500 hover:text-slate-900">✕</button>
+            </div>
         </div>
 
         <!-- Контейнер для карточек -->
