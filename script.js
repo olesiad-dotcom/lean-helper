@@ -320,8 +320,10 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     const panel = document.getElementById('filter-panel');
     if (this.dataset.tab === 'methods') {
       panel.classList.remove('hidden-panel');
+      panel.classList.add('flex', 'items-center', 'gap-1');
     } else {
       panel.classList.add('hidden-panel');
+      panel.classList.remove('flex', 'items-center', 'gap-1');
     }
   });
 });
