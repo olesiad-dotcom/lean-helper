@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочник по качеству и эффективному управлению</title>
+    <!-- Подключаем стили Tailwind CSS для красивого дизайна -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans py-10 px-4 md:px-8">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Шапка сайта -->
+        <header class="mb-10 text-center md:text-left border-b-4 border-slate-900 pb-6">
+            <h1 class="text-3xl md:text-5xl font-black uppercase italic tracking-tight text-slate-950">
+                Справочник QM <span class="text-emerald-500">/</span> Глоссарий
+            </h1>
+            <p class="text-xs text-slate-500 uppercase font-mono tracking-widest mt-2">
+                Интерактивный навигатор по методам управления эффективностью
+              </p>
+        </header>
+
+        <!-- Пустой контейнер, куда JavaScript сам вставит карточки из data.js -->
+        <div id="handbook-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+
+    <!-- 1. СНАЧАЛА подключаем файл с данными -->
+    <script src="data.js"></script>
+
+    <!-- 2. ЗАТЕМ подключаем файл логики, который обработает эти данные -->
+    <script src="script.js"></script>
+</body>
+</html>
