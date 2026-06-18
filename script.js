@@ -4,7 +4,6 @@
 
 let currentTab = 'disciplines';
 let searchQuery = '';
-let selectedDisciplineSlug = 'all';
 let currentDetailId = null;
 let currentDetailType = null; // 'discipline', 'method' или 'document'
 
@@ -12,16 +11,7 @@ const container = document.getElementById('cards-container');
 const detailContainer = document.getElementById('detail-container');
 const searchInput = document.getElementById('search-input');
 const resetSearchBtn = document.getElementById('reset-search');
-const filterSelect = document.getElementById('discipline-filter');
 const tabButtons = document.querySelectorAll('.tab-btn');
-
-// --- ЗАПОЛНЯЕМ ФИЛЬТР ---
-disciplines.forEach(d => {
-  const opt = document.createElement('option');
-  opt.value = d.slug;
-  opt.textContent = d.name;
-  filterSelect.appendChild(opt);
-});
 
 // --- СОБЫТИЯ ---
 searchInput.addEventListener('input', () => {
@@ -32,11 +22,6 @@ searchInput.addEventListener('input', () => {
 resetSearchBtn.addEventListener('click', () => {
   searchInput.value = '';
   searchQuery = '';
-  render();
-});
-
-filterSelect.addEventListener('change', (e) => {
-  selectedDisciplineSlug = e.target.value;
   render();
 });
 
@@ -100,8 +85,8 @@ function renderDisciplines() {
   let html = '';
   filtered.forEach(d => {
     html += `
-      <div class="card p-4" data-id="${d.id}">
-        <h3 class="font-bold text-lg text-indigo-800 border-2 border-indigo-300 rounded px-3 py-1 inline-block">${d.name}</h3>
+      <div class="card p-4 overflow-hidden break-words" data-id="${d.id}">
+        <h3 class="font-bold text-lg text-indigo-800">${d.name}</h3>
         <p class="text-sm text-slate-600">${d.author_year}</p>
         <p class="text-sm mt-2">${d.definition}</p>
         <div class="mt-3 text-xs text-slate-500">Методов: ${d.method_ids.length}, Документов: ${d.document_ids.length}</div>
@@ -182,9 +167,7 @@ function renderDetailDiscipline(discipline) {
 function renderMethods() {
   let filtered = methods.filter(m => {
     if (searchQuery && !m.name.toLowerCase().includes(searchQuery) && !m.description.toLowerCase().includes(searchQuery)) return false;
-    if (selectedDisciplineSlug === 'all') return true;
-    const disc = disciplines.find(d => d.slug === selectedDisciplineSlug);
-    return disc && disc.method_ids.includes(m.id);
+    return true;
   });
 
   if (filtered.length === 0) {
@@ -195,7 +178,7 @@ function renderMethods() {
   let html = '';
   filtered.forEach(m => {
     html += `
-      <div class="card p-4 method-card" data-id="${m.id}" style="cursor:pointer;">
+      <div class="card p-4 overflow-hidden break-words method-card" data-id="${m.id}" style="cursor:pointer;">
         <h3 class="font-bold text-lg text-indigo-800">${m.name}</h3>
       </div>
     `;
@@ -262,7 +245,7 @@ function renderDocuments() {
   let html = '';
   filtered.forEach(d => {
     html += `
-      <div class="card p-4 document-card" data-id="${d.id}" style="cursor:pointer;">
+      <div class="card p-4 overflow-hidden break-words document-card" data-id="${d.id}" style="cursor:pointer;">
         <h3 class="font-bold text-lg text-indigo-800">${d.name}</h3>
       </div>
     `;
@@ -314,21 +297,7 @@ function renderDetailDocument(doc) {
   });
 }
 
-// --- ФИЛЬТР ДЛЯ ВКЛАДКИ "МЕТОДЫ" ---
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    const panel = document.getElementById('filter-panel');
-    if (this.dataset.tab === 'methods') {
-      panel.classList.remove('hidden-panel');
-      panel.classList.add('flex', 'items-center', 'gap-1');
-    } else {
-      panel.classList.add('hidden-panel');
-      panel.classList.remove('flex', 'items-center', 'gap-1');
-    }
-  });
-});
-
+// --- ИНИЦИАЛИЗАЦИЯ ---
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('filter-panel').classList.add('hidden-panel');
   render();
 });
